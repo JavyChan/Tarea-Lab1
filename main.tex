@@ -1,0 +1,225 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsfonts,amsmath,amssymb,amsthm} %AMS
+
+\usepackage{hyperref}%Hyperlinks
+\hypersetup{
+    colorlinks = true,
+    citecolor = blue
+}
+\usepackage{biblatex}%bibliografia
+\addbibresource{bibi.bib} %bib file
+
+\usepackage{enumitem}% customize ennumerate
+\usepackage[spanish]{babel}%default to spanish gente
+\usepackage{csquotes} %prettier quotes
+\usepackage{lipsum} % lorem ispum generator
+
+\usepackage{multicol} % more columns for writing
+\setlength{\columnsep}{0.5cm} %column separation
+\usepackage[margin=2cm]{geometry} %universal text separation
+
+
+\title{Análisis experimental de la constante de elasticidad de un resorte de laboratorio, con métodos computacionales}
+\author{
+    \textbf{Autor: } Javier Chandía }
+\date{9 de septiembre, 2024}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Notas
+
+% El mini-informe debe incluir:
+% Título
+% Resumen
+% Introducción
+% Teoría
+% Procedimiento Experimental
+% Resultados
+% Discusión (de errores)
+% Conclusiones 
+% Apéndice con el código en Python utilizado.
+
+%No hay requisito de bibliografía, nice
+
+%Papers de ejemplo para el formato:
+
+%statmech [https://arxiv.org/pdf/2408.15039]
+%quantum** [https://arxiv.org/pdf/2409.03748]
+%classical** [https://arxiv.org/pdf/2409.01203]
+%libro?mathematicalphysics [https://arxiv.org/pdf/2409.03117]
+%mathematicalphysics2 [https://arxiv.org/pdf/2409.02805]
+%condensedmatter-mesonano**[https://arxiv.org/pdf/2409.03471]
+
+%** usar esta de referencia
+
+%documentacion multicol
+%[https://ctan.dcc.uchile.cl/macros/latex/required/tools/multicol.pdf]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\maketitle
+
+\begin{multicols}{2}
+\begin{abstract}
+    Se realizaron mediciones para obtener la constante de elasticidad de un resorte de laboratorio, tras lo cual, mediante un gráfico, se observó su comportamiento lineal en un gráfico masa-desplazamiento, acorde a la teoría.
+\end{abstract}
+\begin{center}
+    \section{Introduccion}
+\end{center}
+Las fuerzas y sus leyes, establecidas por Sir Isaac Newton, ya se han establecido como un pilar fundamental en la física, y ha sido corroborada incontables veces.
+
+Los resortes son una de estas fuerzas, y mediante el análisis de esta fuerza en un sistema masa-resorte suspendido en gravedad, podemos obtener la constante de elasticidad $k$ despejando en términos de las otras variables. 
+
+A partir de esto, podemos obtener un diseño experimenal para obtener esta constante que es dependiente del material del resorte.
+
+\centering
+    \section{Teoría}
+\raggedright
+Se conoce que \begin{align}
+    \sum_{i} \vec{F}_i=\frac{d\vec{p}}{dt} \label{eq:1}
+\end{align}
+En un sistema en reposo de un resorte suspendido, las fuerzas que actúan solo son la gravedad y la fuerza elástica, donde:
+\begin{align}
+    \label{eq:2} \vec{F}_{k}&= - k y \hat{y}\\ 
+    \vec{F}_{g}&= mg \hat{y} \label{eq:3}
+\end{align}
+donde $\hat{y}$ representa el vector unitario perpendicular al suelo, en dirección  hacia abajo, $y$ es la distancia desde nuestra elección de origen, $m$ es la masa del resorte y $g$ la constante de aceleración gravitacional.
+
+Luego:
+\begin{align*}
+   \eqref{eq:2},\eqref{eq:3},\eqref{eq:1}\cdot\hat{y} \implies & -ky + mg = 0\\
+   \implies & k=\frac{mg}{y}\\
+   \implies & y(m) = \frac{g}{k} m \tag{$\star$}  \label{eq:estrella}
+\end{align*}
+
+\columnbreak
+
+Si aumentamos la masa que sostiene el resorte, entonces aumentamos la distancia en la que se desplaza el resorte.
+\begin{align}
+    y(m+\Delta m) &= \frac{g}{k}(m+\Delta m)\label{eq:4}
+\end{align}
+Para distintas masas $\{\Delta m_i\}_{i\in \mathbb{N}}$, llamaremos a estos nuevos desplazamientos $y_i=\Delta y_i$, los cuales serán nuestros puntos de medición. 
+
+\centering
+\section{Procedimiento experimental}
+\raggedright
+
+\centering
+    \subsection{Materiales}
+\raggedright
+
+\begin{enumerate}[start=1, label={\bfseries \roman*})]
+\item 1 resorte resistente
+\item 1 regla de aprox. 2 metros
+\item Soportes para suspender el resorte y la regla
+\item Pesas de $(0.25, 0.5, 1)[kg]$
+\item Una balanza de laboratorio
+\end{enumerate}
+
+\centering
+    \subsection{Montaje y registros}
+\raggedright
+
+\begin{enumerate}[start=1, label={\bfseries \arabic*})]
+\item Se ensambla el sistema del resorte con sus soportes, de forma que quede perpendicular a la superficie del suelo.
+\item Se ensamblan los soportes de la regla, de modo que sea posible registrar los desplazamientos del sistema masa-resorte.
+\item Se mide la masa real de las diferentes pesas en la balanza
+\item Se conectan las masas con el resorte, tales que midamos en intervalos equiespaciados de $\Delta m_i=0.25 [kg]$ los diferentes desplazamientos de la masa $y_i$
+\end{enumerate}
+\newpage
+
+\centering
+    \section{Resultados}
+\raggedright
+
+Se obtuvieron las siguientes mediciones:
+
+\begin{enumerate}[start=1, label={\bfseries \roman*})]
+\item Masas (en gramos) \\
+Según los valores reales de las masas, obtenemos que:
+\begin{align*}
+    \left[\begin{array}{cc}
+         \Delta m_1 &= 249.8 \pm 0.1  \\
+        \Delta m_2 &= 499.4 \pm 0.1\\
+        \Delta m_3 &= 749.2 \pm 0.2\\
+        \Delta m_4 &= 999.2 \pm 0.1\\
+        \Delta m_5 &= 1249.0 \pm 0.2\\
+        \Delta m_6 &= 1486.6 \pm 0.2\\
+        \Delta m_7 &= 1748.4 \pm 0.3
+    \end{array}\right]
+\end{align*}
+\item Desplazamientos (en centímetros)\\
+Obtuvimos las siguientes medidas para los desplazamientos
+\begin{align*}
+    \left[\begin{array}{cc}
+        y_1 &= 8.8 \pm 0.1\\
+         y_2 &=  16.2 \pm 0.05\\
+         y_3 &= 24.1\pm 0.05 \\
+         y_4 &= 32.4 \pm 0.05\\
+         y_5 &= 40.5 \pm 0.3\\
+         y_6 &= 48.2 \pm 0.05\\
+         y_7 &= 56.0\pm 0.05
+    \end{array}\right]
+\end{align*}
+\end{enumerate}
+Luego, graficando los resultados en un gráfico desplazamiento/tiempo (ver figura \ref{fig:grafico_desp-masa}) obtenemos el siguiente ajuste de función:
+\begin{align*}
+    10^{-2}y_i &= \frac{9.81}{k}\cdot 10^{-3}\Delta m_i\\
+    y_i &= 10^{-1}\frac{9.81}{k}\cdot \Delta m_i \tag{S.I}
+\end{align*}
+Para obtener $k$ mediante el gráfico del ajuste lineal, realizamos una busqueda binaria, de modo que se ajuste lo más cercano posible a todos los puntos, y tras 14 iteraciones, obtenemos que:
+\begin{align*}
+    \frac{g}{k}&\approx ((2^{-5}+2^{-11}+2^{-12}+2^{-13}+2^{-14}))\\
+    \implies \frac{g}{k}&= 0.03216552734375\\
+    \implies k &\approx 30.4984895636
+\end{align*}
+Puesto que $k$ fue encontrado por una búsqueda binaria, este valor de $k$ es solo un estimativo. Aún así, podemos asegurar que:
+\begin{align*}
+    k= 29.6\pm 1.75
+\end{align*}
+Pues el valor de $2^{-5}$ es la mínima cota inferior de las pendientes, y conlleva a un $k=31.39$. A medida que aumentamos la presición, el valor de $k$ va disminuyendo.
+
+Similarmente, podemos ir acotando superiormente, y $10\frac{g}{k}=2^{-4}-2^{-6}-2^{-7}-2^{-8}$ es la máxima cota superior de las pendientes, y obtenemos que $k=27.904$.
+
+Nota para colegas: Una alternativa a este método es obtener $k$ en cada medición, y realizar un análisis estadístico sobre $k$
+\columnbreak
+
+\centering
+    \section{Discusión}
+\raggedright
+
+En el experimento, se obvservaron los siguientes tipos de errores:
+
+\begin{enumerate}[start=1, label={\bfseries \arabic*})]
+\item \emph{Errores de medición en la masa}\\
+Al realizar las mediciones de las masas, obtenemos la incertidumbre de la medición ($0.1$). A medida que realizamos combinaciones de masas, sin medirlas, los errores se van propagando. Este llega a un máximo de $0.3$.
+
+La forma de reducirlos es midiendo en la balanza todas las combinaciones de masas.
+\item \emph{Errores en la medición del desplazamiento}\\
+El error en el desplazamiento está dado por la incertidumbre en la medición ($0.05$). Los errores mayores están dados por errores humanos (de paralaje, por interferencia visual).
+
+La forma de reducirlos es simplemente realizando un proceso más riguroso en un intervalo de tiempo mayor 
+\item \emph{Errores en el cálculo de $k$}\\
+El error en la estimación de $k$ está dado únicamente por el método utilizado, donde tomamos el menor y mayor valores posibles para $k$. Sin embargo, otros métodos pueden llevar a un valor más preciso para $k$, como despejar $k$ para cada valor de $i$ y realizar un análisis estadístico sobre todas las mediciones
+\end{enumerate}
+
+\centering
+    \section{Conclusiones}
+\raggedright
+
+Se obtuvo una medida para la constante elástica del resorte de laboratorio, con $k\approx 30.49$ mediante el análisis del gráfico y la búsqueda binaria. 
+
+Este método se puede generalizar para cualquier resorte, tras lo cual podemos realizar predicciones como la oscilacion periódica de un resorte a la que se le aplicó una fuerza externa en el tiempo, con la precisión dictada por la incertidumbre en la constante de elasticidad.
+
+Finalmente, comprobamos la efectividad de un ajuste mediante busqueda binaria. Si bien no es perfecto, puede resultar una aproximación decente a los mínimos cuadrados, aunque pierde efectividad cuando hay más dispersión de datos.
+\end{multicols}
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{graficolab1.pdf}
+    \caption{Gráfico desplazamiento/masa. Error en rojo, puntos en azul, ajuste en morado. El error es más pequeño que el punto.}
+    \label{fig:grafico_desp-masa}
+\end{figure}
+\newpage
+\section{Apéndice}
+Descargar código fuente: \href{https://github.com/JavyChan/Tarea-Lab1}{Github/JavyChan}
+\end{document}
